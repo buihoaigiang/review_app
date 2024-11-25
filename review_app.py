@@ -17,6 +17,7 @@ from string import punctuation
 from collections import Counter
 import nltk
 from nltk import ngrams
+import streamlit
 
 def app_store_scraper(country, app_name, app_id, how_many):
     ly = AppStore(country=country, app_name=app_name, app_id = app_id)
