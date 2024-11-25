@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+# %matplotlib inline
 from nltk.stem import WordNetLemmatizer
 from wordcloud import WordCloud,STOPWORDS
 from google_play_scraper import Sort, reviews
@@ -15,9 +16,7 @@ from nltk.corpus import stopwords
 from string import punctuation
 from collections import Counter
 import nltk
-# from nltk import ngramspyth
-from nltk.util import ngrams
-import streamlit
+from nltk import ngrams
 
 def app_store_scraper(country, app_name, app_id, how_many):
     ly = AppStore(country=country, app_name=app_name, app_id = app_id)
@@ -100,6 +99,7 @@ def clean_word(word: Union[str, float, int]) -> str:
         if word in NEGATION_WORDS:
             return word
             
+            
         # Normal cleaning for other words
         normalized = unicodedata.normalize('NFKD', word)
         ascii_text = normalized.encode('ASCII', 'ignore').decode('ASCII')
@@ -138,7 +138,7 @@ def clean_text(text: Union[str, float, int]) -> str:
             continue
             
         cleaned = clean_word(word)
-        if cleaned and len(cleaned) >= 1:
+        if cleaned and len(cleaned) > 1:
             cleaned_words.append(cleaned)
     
     return ' '.join(cleaned_words)
@@ -160,12 +160,13 @@ nltk.download('punkt') # cần tải xuống nếu chưa có
 # Hàm tạo bigrams
 def get_bigrams(text):
     tokens = nltk.word_tokenize(text)
-    return [' '.join(x) for x in ngrams(tokens,1)] # tạo bigram
+    return [' '.join(x) for x in ngrams(tokens,2)] # tạo bigram
+
 store = 'android'
 country = 'us'
 app_name = 'com.fantome.penguinisle'
 app_id = 'com.fantome.penguinisle'
-how_many = 100
+how_many = 1000
 
 viz()
 to_viz_word_cloud = save_df(store)
