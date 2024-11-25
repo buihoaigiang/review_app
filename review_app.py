@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
---%matplotlib inline
 from nltk.stem import WordNetLemmatizer
 from wordcloud import WordCloud,STOPWORDS
 from google_play_scraper import Sort, reviews
